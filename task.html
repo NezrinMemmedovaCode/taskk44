@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="frm1" action="">
+
+        <input placeholder="" type="text" name="" id="inp">
+        <button id="btn">task1</button>
+    </form>
+    <form id="frm2" action="">
+        <input id="inp2" type="text">
+        <button id="btn2">task2</button>
+
+    </form>
+    <ol></ol>
+   
+    <div id="container">
+        <input id="basliq" placeholder="basliq" type="text">
+        <input id="metn" placeholder="metn" type="text">
+        <button id="btn3">task3</button>
+        <div class="kartlar"></div>
+    </div>
+
+    <script>
+
+        // 1)Bir düyməyə basın və ekrana daxil etdiyiniz mətni alert kimi görünsün.
+        let btn=document.getElementById("btn")
+        let inp=document.getElementById("inp")
+
+        btn.addEventListener("click" , function(e){
+            alert(inp.value);
+        })
+        // 2)Bir input olsun və hər mətn yazdığınızda bunu yadda saxlasın, səhifəni yeniləsəniz belə silinməsin (login kimi).
+    
+
+    let frm2=document.getElementById("frm2")
+let inp2=document.getElementById("inp2")
+let btn2=document.getElementById("btn2")
+let ol=document.querySelector("ol")
+let todos=JSON.parse(localStorage.getItem("todos"))||[]
+createTodo()
+frm2.addEventListener("submit",function(e){
+        e.preventDefault()
+        if(inp2.value !==""){
+    
+            todos.push(inp2.value)
+            localStorage.setItem("todos",JSON.stringify(todos))
+            createTodo()
+            inp2.value="";
+        }
+    
+   
+    
+     })
+
+
+function createTodo(){
+    ol.innerHTML=""
+  todos.forEach(todo => {
+    let li=document.createElement("li");
+    li.textContent=todo;
+    ol.appendChild(li);
+  });
+}
+
+
+// 3) İki input və bir düymə olsun. Düyməyə basdığınızda birinci inputdan başlığı, ikinci inputdan isə mətni alınaraq bir "card" yaradılsın (bir növ xəbər saytındakı xəbər kimi). "Card"ın dizaynı mühüm deyil, sadəcə element yaradıb onu yerləşdirin (todo ilə oxşar, lakin iki məlumat alırsınız).
+
+
+
+
+
+let btn3=document.getElementById("btn3")
+
+const savedtitle=localStorage.getItem("savedtitle")
+const savedcontent=localStorage.getItem("savedcontent")
+if(savedtitle && savedcontent){
+    basliq.value=savedtitle;
+    metn.value=savedcontent;
+}
+
+btn3.addEventListener("click" , function(e){
+    let basliq=document.getElementById("basliq").value
+    let metn=document.getElementById("metn").value
+    localStorage.setItem("savedtitle",basliq)
+    localStorage.setItem("savedcontent" , metn)
+    let kartlar=document.querySelector(".kartlar")
+    let kart=document.createElement("div")
+    kart.className=("kart");
+    kart.innerHTML='<h1>' + basliq + '</h1><p>' + metn + '</p>';
+    kartlar.appendChild(kart)
+    
+
+})
+
+// 4. Əvvəlki tapşırığın yaddaşda qalmasını təmin edin, səhifəni yeniləsəniz belə.
+
+     
+ 
+    </script>
+</body>
+</html>
